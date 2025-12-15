@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+
+        <menuitem
+            id="academy_root_menu"
+            name="Academy"
+            sequence="10"/>
+
+        <menuitem
+            id="academy_courses_menu"
+            name="Courses"
+            parent="academy_root_menu"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_academy_course"
+            name="Courses"
+            parent="academy_courses_menu"
+            action="action_academy_course"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_academy_course_category"
+            name="Categories"
+            parent="academy_courses_menu"
+            action="action_academy_course_category"
+            sequence="20"/>
+
+        <menuitem
+            id="academy_enrollments_menu"
+            name="Enrollments"
+            parent="academy_root_menu"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_academy_enrollment_all"
+            name="All Enrollments"
+            parent="academy_enrollments_menu"
+            action="action_academy_enrollment"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_academy_enrollment_my"
+            name="My Enrollments"
+            parent="academy_enrollments_menu"
+            action="action_academy_enrollment_my"
+            sequence="20"/>
+
+        <menuitem
+            id="academy_config_menu"
+            name="Configuration"
+            parent="academy_root_menu"
+            sequence="30"
+            groups="academy_lab.academy_group_manager"/>
+
+    </data>
+</odoo>

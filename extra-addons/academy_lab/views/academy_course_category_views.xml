@@ -37,11 +37,6 @@
             </field>
         </record>
 
-        <menuitem id="menu_academy_course_category_config" 
-                  name="Course Categories" 
-                  parent="academy_config_menu" 
-                  action="action_academy_course_category" 
-                  sequence="10"/>
-
+        
     </data>
 </odoo>

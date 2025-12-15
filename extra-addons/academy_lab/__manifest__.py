@@ -14,6 +14,7 @@
         "views/academy_course_views.xml",
         "views/academy_course_category_views.xml",
         "views/academy_enrollment_views.xml",
-        "views/res_partner_views.xml"
+        "views/res_partner_views.xml",
+        "views/menu.xml"
     ]
 }
