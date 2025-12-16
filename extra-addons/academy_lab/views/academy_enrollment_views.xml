@@ -1,108 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <record id="action_academy_enrollment" model="ir.actions.act_window">
-            <field name="name">All Enrollments</field>
-            <field name="res_model">academy.enrollment</field>
-            <field name="view_mode">list,form</field>
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Create a new course enrollment
-                </p>
-            </field>
-        </record>
 
-        <menuitem id="menu_academy_enrollment_all" 
-                  name="All Enrollments" 
-                  parent="academy_enrollments_menu" 
-                  action="action_academy_enrollment" 
-                  sequence="10"/>
+    <record id="academy_enrollment_list" model="ir.ui.view">
+        <field name="name">academy.enrollment.list</field>
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="student_id"/>
+                <field name="course_id"/>
+                <field name="state"/>
+                <field name="grade"/>
+                <field name="attendance_percentage"/>
+                <field name="passed"/>
+            </list>
+        </field>
+    </record>
 
-        <record id="action_academy_enrollment_my" model="ir.actions.act_window">
-            <field name="name">My Enrollments</field>
-            <field name="res_model">academy.enrollment</field>
-            <field name="view_mode">list,form</field>
-            <field name="domain">[('student_id.user_ids', 'in', [uid])]</field>
-        </record>
-        
-        <menuitem id="menu_academy_enrollment_my" 
-                  name="My Enrollments" 
-                  parent="academy_enrollments_menu" 
-                  action="action_academy_enrollment_my" 
-                  sequence="20"/>
+    <record id="academy_enrollment_form" model="ir.ui.view">
+        <field name="name">academy.enrollment.form</field>
+        <field name="model">academy.enrollment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" modifiers="{'invisible': [('state','!=','draft')]}"/>
+                    <button name="action_complete" type="object" string="Complete" modifiers="{'invisible': [('state','!=','confirmed')]}"/>
+                    <button name="action_cancel" type="object" string="Cancel" modifiers="{'invisible': [('state','in',['completed','cancelled'])]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
 
-
-        <record id="academy_enrollment_view_search" model="ir.ui.view">
-            <field name="name">academy.enrollment.search</field>
-            <field name="model">academy.enrollment</field>
-            <field name="arch" type="xml">
-                <search string="Enrollments">
-                    <field name="student_id"/>
-                    <field name="course_id"/>
-                    <filter string="My Enrollments" name="my_enrollments" domain="[('student_id.user_id', '=', uid)]"/>
-                    <filter string="Confirmed" name="state_confirmed" domain="[('state', '=', 'confirmed')]"/>
-                    <filter string="Completed" name="state_completed" domain="[('state', '=', 'completed')]"/>
-                    <group expand="0" string="Group By">
-                        <filter name="group_by_course" string="Course" context="{'group_by': 'course_id'}"/>
-                        <filter name="group_by_student" string="Student" context="{'group_by': 'student_id'}"/>
-                        <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                <sheet>
+                    <group>
+                        <field name="student_id"/>
+                        <field name="course_id"/>
+                        <field name="enrollment_date"/>
+                        <field name="grade"/>
+                        <field name="attendance_percentage"/>
+                        <field name="passed" readonly="1"/>
+                        <field name="notes"/>
                     </group>
-                </search>
-            </field>
-        </record>
+                </sheet>
 
-        <record id="academy_enrollment_view_list" model="ir.ui.view">
-            <field name="name">academy.enrollment.list</field>
-            <field name="model">academy.enrollment</field>
-            <field name="arch" type="xml">
-                <list>
-                    <field name="enrollment_date"/>
-                    <field name="course_id"/>
-                    <field name="student_id"/>
-                    <field name="grade"/>
-                    <field name="attendance_percentage"/>
-                    <field name="passed"/>
-                    <field name="state"/>
-                </list>
-            </field>
-        </record>
+                <chatter/>
+            </form>
+        </field>
+    </record>
 
-        <record id="academy_enrollment_view_form" model="ir.ui.view">
-            <field name="name">academy.enrollment.form</field>
-            <field name="model">academy.enrollment</field>
-            <field name="arch" type="xml">
-                <form string="Course Enrollment">
-                    <header>
-                        <button name="action_confirm" string="Confirm" type="object" states="draft" class="oe_highlight"/>
-                        <button name="action_complete" string="Mark as Completed" type="object" states="confirmed" class="oe_highlight"/>
-                        <button name="action_cancel" string="Cancel" type="object" states="draft,confirmed"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,completed"/>
-                    </header>
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="course_id"/>
-                                <field name="student_id"/>
-                                <field name="enrollment_date"/>
-                            </group>
-                            <group string="Results">
-                                <field name="grade"/>
-                                <field name="attendance_percentage"/>
-                                <field name="passed"/>
-                            </group>
-                        </group>
-                        <notebook>
-                            <page string="Notes">
-                                <field name="notes"/>
-                            </page>
-                        </notebook>
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-    </data>
 </odoo>

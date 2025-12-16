@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="academy_root_menu" name="Academy"/>
+
+    <menuitem id="academy_courses_menu"
+              name="Courses"
+              parent="academy_root_menu"/>
+
+    <record id="academy_course_action" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">academy.course</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="academy_course_menu"
+              name="Courses"
+              parent="academy_courses_menu"
+              action="academy_course_action"/>
+
+    <record id="academy_category_action" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">academy.course.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="academy_category_menu"
+              name="Categories"
+              parent="academy_courses_menu"
+              action="academy_category_action"/>
+
+    <record id="academy_enrollment_action" model="ir.actions.act_window">
+        <field name="name">Enrollments</field>
+        <field name="res_model">academy.enrollment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="academy_enrollment_menu"
+              name="Enrollments"
+              parent="academy_root_menu"
+              action="academy_enrollment_action"/>
+
+</odoo>
