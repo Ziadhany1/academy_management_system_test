@@ -11,12 +11,13 @@ services:
     volumes:
       - ./config:/etc/odoo
       - ./extra-addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
  
     environment:
       - HOST=db
       - USER=odoo
       - PASSWORD=odoo
-    command: odoo --dev xml -c /etc/odoo/odoo.conf
+    command: odoo -u academy_lab --dev all -c /etc/odoo/odoo.conf
     restart: always
     stdin_open: true
     tty: true
@@ -36,3 +37,4 @@ services:
 
 volumes:
   odoo-db-data:
+  odoo-web-data:

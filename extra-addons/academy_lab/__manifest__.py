@@ -1,7 +1,7 @@
 {
     "name": "Academy Lab",
     "version": "18.0.1.0.0",
-    "depends": ["base", "mail", "contacts"],
+    "depends": ["base", "mail", "contacts","sale","account"],
     "author": "Ziad",
     "category": "Education",
     "summary": "Training Academy Management System",
@@ -15,6 +15,8 @@
         "views/academy_course_category_views.xml",
         "views/academy_enrollment_views.xml",
         "views/res_partner_views.xml",
+        'wizard/academy_product_wizard_view.xml',
         "views/academy_course_menu.xml"
+        
     ]
 }

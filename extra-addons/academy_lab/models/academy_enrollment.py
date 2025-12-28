@@ -50,6 +50,12 @@ class AcademyEnrollment(models.Model):
         store=True
     )
 
+    invoice_id = fields.Many2one(
+        "account.move",
+        string="Invoice",
+        readonly=True
+    )
+
     _sql_constraints = [
         (
             'unique_student_course',
@@ -57,6 +63,14 @@ class AcademyEnrollment(models.Model):
             'Student already enrolled in this course.'
         )
     ]
+    def action_view_invoice(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "account.move",
+            "view_mode": "form",
+            "res_id": self.invoice_id.id,
+    }
 
     @api.depends('grade', 'attendance_percentage')
     def _compute_passed(self):

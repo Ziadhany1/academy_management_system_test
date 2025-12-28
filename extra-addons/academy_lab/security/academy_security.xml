@@ -9,13 +9,11 @@
 
     <record id="academy_group_instructor" model="res.groups">
         <field name="name">Academy Instructor</field>
-        <field name="implied_ids" eval="[(4, ref('academy_group_student'))]"/>
         <field name="category_id" ref="base.module_category_education"/>
     </record>
 
     <record id="academy_group_manager" model="res.groups">
         <field name="name">Academy Manager</field>
-        <field name="implied_ids" eval="[(4, ref('academy_group_instructor'))]"/>
         <field name="category_id" ref="base.module_category_education"/>
     </record>
 
@@ -45,6 +43,14 @@
         <field name="perm_write" eval="False"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+       <!-- Instructors: read all enrollments -->
+    <record id="academy_enrollment_manager_rule" model="ir.rule">
+        <field name="name">Instructor Read Enrollments</field>
+        <field name="model_id" ref="model_academy_enrollment"/>
+        <field name="groups" eval="[(4, ref('academy_group_manager'))]"/>
         <field name="domain_force">[(1,'=',1)]</field>
     </record>
 

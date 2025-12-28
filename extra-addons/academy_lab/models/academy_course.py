@@ -9,11 +9,17 @@ class AcademyCourse(models.Model):
     name = fields.Char(required=True, tracking=True)
     code = fields.Char(required=True, index=True)
     description = fields.Text()
+    product_id = fields.Many2one('product.product', string='Related Product', readonly=True)
 
     instructor_id = fields.Many2one(
         'res.partner',
         string='Instructor'
     )
+    product_id = fields.Many2one(
+        'product.product',
+        string='Related Product',
+        readonly=True)
+
 
     instructor_name = fields.Char(
         related='instructor_id.name',
@@ -52,6 +58,29 @@ class AcademyCourse(models.Model):
     is_full = fields.Boolean(compute='_compute_is_full',store=True)
 
     _sql_constraints = [('code_unique', 'unique(code)', 'Course code must be unique.')]
+
+    def action_generate_product(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Generate Product",
+            "res_model": "academy.product.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "default_name": self.name,
+            },
+        }
+    def action_view_sales(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Sales Orders",
+            "res_model": "sale.order",
+            "view_mode": "list,form",
+            "domain": [
+                ("order_line.product_id", "=", self.product_id.id)
+            ],
+    }
 
     @api.depends('enrollment_ids.state')
     def _compute_enrolled_count(self):

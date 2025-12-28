@@ -8,3 +8,4 @@ access_enrollment_manager,enrollment manager,model_academy_enrollment,academy_gr
 access_category_student,category student,model_academy_course_category,academy_group_student,1,0,0,0
 access_category_instructor,category instructor,model_academy_course_category,academy_group_instructor,1,0,0,0
 access_category_manager,category manager,model_academy_course_category,academy_group_manager,1,1,1,1
+access_academy_product_wizard,academy.product.wizard,model_academy_product_wizard,base.group_user,1,1,1,1
